@@ -27,7 +27,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //Initialise NfcAdapter
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        //If no NfcAdapter, display that the device has no NFC
+        Button button = findViewById(R.id.button);
+        NfcTracker tracker = new NfcTracker(this);
+        button.setOnClickListener(new ButtonOnClickListener(nfcTracker));
+
+
         if (nfcAdapter == null){
             Toast.makeText(this,"NO NFC Capabilities",
                     Toast.LENGTH_SHORT).show();
@@ -72,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
             Tag tag = (Tag) intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             assert tag != null;
             byte[] payload = detectTagData(tag).getBytes();
+            // System.out.println(Arrays.toString(bytes));
+
+            // Create a string from the byte array without specifying
+            // character encoding
+            String string = new String(payload);
+            System.out.println(string);
         }
     }
 
