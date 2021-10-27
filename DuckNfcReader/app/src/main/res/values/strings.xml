@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DuckNfcReader</string>
+    <string name="read_nfc">Read NFC</string>
+    <string name="output">Output</string>
 </resources>
