@@ -19,17 +19,20 @@ public class MainActivity extends AppCompatActivity {
     //Intialize attributes
     NfcAdapter nfcAdapter;
     PendingIntent pendingIntent;
-    NfcTracker nfcTracker;
     final static String TAG = "nfc_test";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Initialise NfcAdapter
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        nfcAdapter.enableReaderMode(this,);
+
+        Log.d("nfc debug", "nfc is enabled: " + nfcAdapter.isEnabled());
         Button button = findViewById(R.id.button);
         NfcTracker tracker = new NfcTracker(this);
-        button.setOnClickListener(new ButtonOnClickListener(nfcTracker));
+        button.setOnClickListener(new ButtonOnClickListener(tracker));
 
 
         if (nfcAdapter == null){
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             finish();
         }else{
-            pendingIntent = PendingIntent.getActivity(this,0,new Intent(this,this.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),0);
+            pendingIntent = PendingIntent.getActivity(this,0,new Intent(this,this.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),PendingIntent.FLAG_MUTABLE);
         }
     }
 

@@ -20,6 +20,7 @@ public class ButtonOnClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        adapter = NfcAdapter.getDefaultAdapter(tracker.getContext());
+            adapter = NfcAdapter.getDefaultAdapter(tracker.getContext());
+
     }
 }
