@@ -16,6 +16,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 public class MainActivity extends AppCompatActivity {
 
     //Intialize attributes
@@ -70,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         setIntent(intent);
         resolveIntent(intent);
-        WebView myWebView = (WebView) findViewById(R.id.webview);
-        WebSettings webSettings = myWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+//        WebView myWebView = (WebView) findViewById(R.id.webview);
+//        WebSettings webSettings = myWebView.getSettings();
+//        webSettings.setJavaScriptEnabled(true);
         RequestParams params = new RequestParams();
         params.put("chipID", TAG);
         myWebView.loadUrl("https://pumas.dev/duck/post.php");
