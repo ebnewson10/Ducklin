@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         int length = out.length;
 
         try {
-            URL url = new URL("https://www.example.com/login");
+            URL url = new URL("https://pumas.dev/duck/post.php");
             URLConnection con = url.openConnection();
             HttpURLConnection http = (HttpURLConnection)con;
             http.setRequestMethod("POST");
