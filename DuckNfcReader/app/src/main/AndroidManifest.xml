@@ -3,6 +3,7 @@
     package="com.example.ducknfcreader">
 
     <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
