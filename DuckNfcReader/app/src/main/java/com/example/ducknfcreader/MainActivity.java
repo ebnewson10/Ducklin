@@ -10,6 +10,8 @@ import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     //Intialize attributes
     NfcAdapter nfcAdapter;
     PendingIntent pendingIntent;
-    final static String TAG = "nfc_test";
+    static String TAG = "nfc_test";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -27,12 +29,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //Initialise NfcAdapter
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        nfcAdapter.enableReaderMode(this,);
+
 
         Log.d("nfc debug", "nfc is enabled: " + nfcAdapter.isEnabled());
-        Button button = findViewById(R.id.button);
         NfcTracker tracker = new NfcTracker(this);
-        button.setOnClickListener(new ButtonOnClickListener(tracker));
+
 
 
         if (nfcAdapter == null){
@@ -69,6 +70,35 @@ public class MainActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         setIntent(intent);
         resolveIntent(intent);
+        WebView myWebView = (WebView) findViewById(R.id.webview);
+        WebSettings webSettings = myWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        RequestParams params = new RequestParams();
+        params.put("chipID", TAG);
+        myWebView.loadUrl("https://pumas.dev/duck/post.php");
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.put("https://pumas.dev/duck/post.php", new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+
     }
 
     private void resolveIntent(Intent intent) {
@@ -83,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
 
             // Create a string from the byte array without specifying
             // character encoding
-            String string = new String(payload);
-            System.out.println(string);
+            TAG = new String(payload);
+
         }
     }
 

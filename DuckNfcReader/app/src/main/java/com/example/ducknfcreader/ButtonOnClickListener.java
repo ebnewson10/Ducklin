@@ -14,13 +14,13 @@ public class ButtonOnClickListener implements View.OnClickListener {
     NfcTracker tracker;
     NfcAdapter adapter;
 
-    public ButtonOnClickListener(NfcTracker tracker) {
+    public ButtonOnClickListener(NfcTracker tracker,PendingIntent Intent) {
         this.tracker = tracker;
     }
 
     @Override
     public void onClick(View v) {
-            adapter = NfcAdapter.getDefaultAdapter(tracker.getContext());
+        adapter.enableForegroundDispatch(this,Intent,null,null);
 
     }
 }
